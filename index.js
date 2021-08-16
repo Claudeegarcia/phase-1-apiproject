@@ -5,13 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
     getTypes()
 })
 
+  
 function getTypes(){
     
     let main = document.getElementById('main ul')
     let info = document.getElementById('info')
     let typeLis = document.getElementById('type-list')
     info.innerHTML = ""
-    fetch(`https://pokeapi.co/api/v2/type`)
+        fetch (`https://pokeapi.co/api/v2/pokemon`)
+        
         .then(res => res.json())
         .then(name => {
             name.results.map(type => {
@@ -28,10 +30,6 @@ function getTypes(){
             
 
         })
-
-        
-
-
 }
 
 function attachClicksToLinks(){
@@ -60,13 +58,19 @@ async function displayType(e) {
     let info = document.getElementById('info')
     let typeLis = document.getElementById('type-list')
     typeLis.innerHTML = ""
-    let type = e.target.dataset.value
-    
-    fetch(`https://pokeapi.co/api/v2/type/${type}`)
+   
+
+    fetch(`https://pokeapi.co/api/v2/pokemon/${e.target.dataset.value}`)
         .then(res => res.json())
-        .then(name => {
-            info.innerHTML = 
-            `${name.damage_relations.double_damage_from[0].url}`
-            console.log(name)
+        .then(data => {
+            info.innerHTML +=
+            `<h1>${data.name}</h1> 
+            <h1>Weight: </h1>
+            <p>${data.weight}</p>
+            <h1>Height: </h1>
+            <p>${data.height}</p>
+            <h1>Base Experience: </h1>
+            <p>${data.base_experience}</p>`
+            //console.log(data)
         })
-}
+    }
